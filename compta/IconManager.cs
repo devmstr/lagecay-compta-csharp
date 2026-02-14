@@ -62,7 +62,6 @@ namespace compta
             public static IconChar Calculator = IconChar.Calculator;
             public static IconChar Business = IconChar.Briefcase;
             public static IconChar Journals = IconChar.Book;
-            // TODO: add centralization icon
             public static IconChar Centralisation = IconChar.AlignCenter;
             public static IconChar Accounts = IconChar.Tasks;
             public static IconChar Pieces = IconChar.FileAlt;
@@ -75,6 +74,24 @@ namespace compta
             public static IconChar ShowAll = IconChar.Landmark;
             public static IconChar Table = IconChar.Table;
             public static IconChar Pies = IconChar.ChartPie;
+            
+            // New Icons for remaining menu items
+            public static IconChar Files = IconChar.File;
+            public static IconChar Tools = IconChar.Tools;
+            public static IconChar Investments = IconChar.ChartLine;
+            public static IconChar Board = IconChar.ClipboardList;
+            public static IconChar Import = IconChar.FileImport;
+            public static IconChar Exchange = IconChar.ExchangeAlt;
+            public static IconChar Percentage = IconChar.Percentage;
+            public static IconChar Check = IconChar.CheckDouble;
+            public static IconChar Balance = IconChar.BalanceScale;
+            public static IconChar DoorOpen = IconChar.DoorOpen;
+            public static IconChar History = IconChar.History;
+            public static IconChar Shopping = IconChar.ShoppingCart;
+            public static IconChar UserTag = IconChar.UserTag;
+            public static IconChar Contract = IconChar.FileContract;
+            public static IconChar Others = IconChar.EllipsisH;
+            public static IconChar Palette = IconChar.Palette;
         }
     }
 }

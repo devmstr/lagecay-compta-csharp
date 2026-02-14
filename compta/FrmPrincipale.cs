@@ -210,21 +210,55 @@ public class FrmPrincipale : XtraForm
 		// Senior Level approach: Centralized icon management via IconManager (FontAwesome Sharp)
 		// FontAwesome vector icons provide a crisp, modern look across all display scales.
 		
-		// Main Menu Items (Small)
+		// Parent Menu Items
+		IconManager.SetIcon(barFichiers, IconManager.Icons.Files);
+		IconManager.SetIcon(barTables, IconManager.Icons.Table);
+		IconManager.SetIcon(barTraitements, IconManager.Icons.Tools);
+		IconManager.SetIcon(barEditions, IconManager.Icons.Print);
+
+		// --- Fichiers Menu ---
 		IconManager.SetIcon(barOuvrir, IconManager.Icons.Open);
+		IconManager.SetIcon(barEnregisterSous, IconManager.Icons.Save);
+		IconManager.SetIcon(barExporterDossier, IconManager.Icons.ExportXlsx); // Exporter Dossier
 		IconManager.SetIcon(barCompacter, IconManager.Icons.Database);
-		IconManager.SetIcon(barEnregisterSous, FontAwesome.Sharp.IconChar.FloppyDisk);
-		IconManager.SetIcon(barCloturer, FontAwesome.Sharp.IconChar.Eye);
+		IconManager.SetIcon(barCloturer, IconManager.Icons.Close); // Cloturer -> Close/Lock
 		IconManager.SetIcon(barQuitter, IconManager.Icons.Close);
-		
+
+		// --- Tables Menu ---
 		IconManager.SetIcon(barDossiers, IconManager.Icons.Business);
-		IconManager.SetIcon(barJournaux, IconManager.Icons.Journals);
-		IconManager.SetIcon(barPlanComptable, IconManager.Icons.Accounts);
-		IconManager.SetIcon(barPieces, IconManager.Icons.Pieces);
-		IconManager.SetIcon(barTiers, IconManager.Icons.Users);
 		IconManager.SetIcon(barVilles, IconManager.Icons.Map);
-		
-		// Large Buttons (Header Bar)
+		IconManager.SetIcon(barTiers, IconManager.Icons.Users);
+		IconManager.SetIcon(barPlanComptable, IconManager.Icons.Accounts);
+		IconManager.SetIcon(barJournaux, IconManager.Icons.Journals);
+		IconManager.SetIcon(barPieces, IconManager.Icons.Pieces);
+		IconManager.SetIcon(barInvestissements, IconManager.Icons.Investments);
+
+		// --- Traitements Menu ---
+		IconManager.SetIcon(barEcrituresBord, IconManager.Icons.Board);
+		IconManager.SetIcon(barEcrituresPCS, IconManager.Icons.Pieces); // Ecritures par Pièce
+		IconManager.SetIcon(barImporterEcritures, IconManager.Icons.Import);
+		IconManager.SetIcon(barChangerDossier, IconManager.Icons.Exchange);
+		IconManager.SetIcon(barAmortissement, IconManager.Icons.Percentage);
+		IconManager.SetIcon(barPointageEcritures, IconManager.Icons.Check);
+		IconManager.SetIcon(barRapprochement, IconManager.Icons.Balance);
+
+		// --- Editions Menu ---
+		IconManager.SetIcon(barEdJournaux, IconManager.Icons.Journals);
+		IconManager.SetIcon(barEdJournalOuverture, IconManager.Icons.DoorOpen);
+		IconManager.SetIcon(barEdGrandLivre, IconManager.Icons.Reading);
+		IconManager.SetIcon(barEdHistoriqueCompte, IconManager.Icons.History);
+		IconManager.SetIcon(barEdBalanceSoldes, IconManager.Icons.Balance);
+		IconManager.SetIcon(barEdBalanceGenerale, IconManager.Icons.ShowAll);
+		IconManager.SetIcon(barEdBalanceComptes, IconManager.Icons.Table);
+		IconManager.SetIcon(barEdCentralisation, IconManager.Icons.Centralisation);
+		IconManager.SetIcon(barEdRecapAchatsVentes, IconManager.Icons.Shopping);
+		IconManager.SetIcon(barEdEtatClient, IconManager.Icons.UserTag);
+		IconManager.SetIcon(barEdBilan, IconManager.Icons.Contract);
+		IconManager.SetIcon(barEdDiversEtats, IconManager.Icons.Others);
+		IconManager.SetIcon(barButtonItem9, IconManager.Icons.Users); // Dossier Client report
+		IconManager.SetIcon(skinBarSubItem1, IconManager.Icons.Palette); // Themes menu
+
+		// Large Buttons (Header Bar) - Preserving existing assignments
 		IconManager.SetIcon(barSubItem3, IconManager.Icons.Edit, true);
 		IconManager.SetIcon(barLargeEcrPiece, IconManager.Icons.Pieces, true);
 		IconManager.SetIcon(barLargeEcrBordereau, IconManager.Icons.Today, true);
@@ -233,7 +267,6 @@ public class FrmPrincipale : XtraForm
 		IconManager.SetIcon(barLargeButtonItem3, IconManager.Icons.Open, true);
 		IconManager.SetIcon(barLargeButtonItem4, IconManager.Icons.Journals, true);
 		IconManager.SetIcon(barLargeButtonItem1, IconManager.Icons.Centralisation, true);
-		IconManager.SetIcon(barEdCentralisation, IconManager.Icons.Centralisation);
 		IconManager.SetIcon(barLargeButtonItem5, IconManager.Icons.Reading, true);
 		
 		IconManager.SetIcon(barSubItem1, IconManager.Icons.Accounting, true);

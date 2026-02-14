@@ -16,7 +16,7 @@ internal sealed class Settings : ApplicationSettingsBase
 	[ApplicationScopedSetting]
 	[DebuggerNonUserCode]
 	[SpecialSetting(SpecialSetting.ConnectionString)]
-	[DefaultSettingValue("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\\MyDatabase.mdb")]
+	[DefaultSettingValue("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\MyDatabase.mdb")]
 	public string NouvelleBase2014ConnectionString => (string)this["NouvelleBase2014ConnectionString"];
 
 	[UserScopedSetting]

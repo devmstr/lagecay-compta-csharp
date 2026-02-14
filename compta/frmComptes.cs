@@ -441,6 +441,11 @@ public class frmComptes : XtraForm
 		Close();
 	}
 
+	private void simpleButton4_Click(object sender, EventArgs e)
+	{
+		GridControl1.ShowPrintPreview();
+	}
+
 	private void frmComptes_KeyDown(object sender, KeyEventArgs e)
 	{
 		if (e.Modifiers == Keys.None && e.KeyCode == Keys.Escape)
@@ -449,7 +454,6 @@ public class frmComptes : XtraForm
 			Close();
 		}
 	}
-
 	private void simpleButton21_Click(object sender, EventArgs e)
 	{
 		string maxVal = dataSet1.Comptes.Compute("max([CPT])", string.Empty).ToString();
@@ -849,6 +853,7 @@ public class frmComptes : XtraForm
 		this.simpleButton4.StyleController = this.dataLayoutControl1;
 		this.simpleButton4.TabIndex = 78;
 		this.simpleButton4.Text = "Imprimer";
+		this.simpleButton4.Click += new System.EventHandler(simpleButton4_Click);
 		this.simpleButton11.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton11.Location = new System.Drawing.Point(42, 488);
 		this.simpleButton11.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -868,6 +873,7 @@ public class frmComptes : XtraForm
 		this.simpleButton3.StyleController = this.dataLayoutControl1;
 		this.simpleButton3.TabIndex = 77;
 		this.simpleButton3.Text = "Supprimer";
+		this.simpleButton3.Click += new System.EventHandler(bindingNavigatorDeleteItem_Click);
 		this.simpleButton21.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton21.Location = new System.Drawing.Point(199, 488);
 		this.simpleButton21.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -1079,7 +1085,6 @@ public class frmComptes : XtraForm
 		this.layoutControlItem21.Text = "layoutControlItem9";
 		this.layoutControlItem21.TextSize = new System.Drawing.Size(0, 0);
 		this.layoutControlItem21.TextVisible = false;
-		this.layoutControlItem21.Click += new System.EventHandler(bindingNavigatorDeleteItem_Click);
 		this.layoutControlItem22.Control = this.simpleButton21;
 		this.layoutControlItem22.ControlAlignment = System.Drawing.ContentAlignment.TopRight;
 		this.layoutControlItem22.CustomizationFormText = "layoutControlItem8";
