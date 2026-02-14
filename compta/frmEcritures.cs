@@ -265,6 +265,13 @@ public class frmEcritures : XtraForm
 	{
 		InitializeComponent();
 		parpiece = _parpiece;
+		ApplyModernIcons();
+	}
+
+	private void ApplyModernIcons()
+	{
+		// Centralized icon management
+		IconManager.SetIcon(btnEnregistrer, IconManager.Icons.Save);
 	}
 
 	private void frmEcritures_Load(object sender, EventArgs e)
@@ -1880,7 +1887,6 @@ public class frmEcritures : XtraForm
 		this.layoutControl1.Size = new System.Drawing.Size(902, 530);
 		this.layoutControl1.TabIndex = 0;
 		this.layoutControl1.Text = "layoutControl1";
-		this.btnEnregistrer.ImageOptions.Image = compta.Properties.Resources.save_16x161;
 		this.btnEnregistrer.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
 		this.btnEnregistrer.Location = new System.Drawing.Point(600, 380);
 		this.btnEnregistrer.Name = "btnEnregistrer";

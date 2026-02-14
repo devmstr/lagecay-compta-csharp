@@ -174,6 +174,15 @@ public class frmDossiers : XtraForm
 	public frmDossiers()
 	{
 		InitializeComponent();
+		ApplyModernIcons();
+	}
+
+	private void ApplyModernIcons()
+	{
+		IconManager.SetIcon(simpleButton11, IconManager.Icons.Save);
+		IconManager.SetIcon(simpleButton2, IconManager.Icons.Add);
+		IconManager.SetIcon(simpleButton3, IconManager.Icons.Delete);
+		IconManager.SetIcon(simpleButton4, IconManager.Icons.Print);
 	}
 
 	private void frmDossiers_Load(object sender, EventArgs e)
@@ -687,7 +696,6 @@ public class frmDossiers : XtraForm
 		this.textEdit17.Size = new System.Drawing.Size(289, 20);
 		this.textEdit17.StyleController = this.dataLayoutControl1;
 		this.textEdit17.TabIndex = 41;
-		this.simpleButton4.ImageOptions.Image = compta.Properties.Resources.print_16x16;
 		this.simpleButton4.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton4.Location = new System.Drawing.Point(531, 444);
 		this.simpleButton4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -698,7 +706,6 @@ public class frmDossiers : XtraForm
 		this.simpleButton4.TabIndex = 78;
 		this.simpleButton4.TabStop = false;
 		this.simpleButton4.Text = "Imprimer";
-		this.simpleButton11.ImageOptions.Image = compta.Properties.Resources.save_16x16;
 		this.simpleButton11.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton11.Location = new System.Drawing.Point(42, 444);
 		this.simpleButton11.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -710,7 +717,6 @@ public class frmDossiers : XtraForm
 		this.simpleButton11.TabStop = false;
 		this.simpleButton11.Text = "Enregistrer";
 		this.simpleButton11.Click += new System.EventHandler(toolStripButton1_Click);
-		this.simpleButton3.ImageOptions.Image = compta.Properties.Resources.delete_16x16;
 		this.simpleButton3.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton3.Location = new System.Drawing.Point(368, 444);
 		this.simpleButton3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -721,7 +727,6 @@ public class frmDossiers : XtraForm
 		this.simpleButton3.TabIndex = 77;
 		this.simpleButton3.TabStop = false;
 		this.simpleButton3.Text = "Supprimer";
-		this.simpleButton2.ImageOptions.Image = compta.Properties.Resources.add_16x16;
 		this.simpleButton2.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton2.Location = new System.Drawing.Point(205, 444);
 		this.simpleButton2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);

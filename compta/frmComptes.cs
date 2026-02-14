@@ -135,6 +135,15 @@ public class frmComptes : XtraForm
 	{
 		InitializeComponent();
 		gridView1.OptionsFind.AlwaysVisible = false;
+		ApplyModernIcons();
+	}
+
+	private void ApplyModernIcons()
+	{
+		IconManager.SetIcon(simpleButton11, IconManager.Icons.Save);
+		IconManager.SetIcon(simpleButton21, IconManager.Icons.Add);
+		IconManager.SetIcon(simpleButton3, IconManager.Icons.Delete);
+		IconManager.SetIcon(simpleButton4, IconManager.Icons.Print);
 	}
 
 	public frmComptes(bool rech, string filtre = "")
@@ -144,6 +153,7 @@ public class frmComptes : XtraForm
 		gridView1.Columns["IMPUT"].FilterInfo = new ColumnFilterInfo("[IMPUT] = 'O'");
 		gridView1.OptionsFind.AlwaysVisible = true;
 		fil = filtre;
+		ApplyModernIcons();
 	}
 
 	private void frmComptes_Load(object sender, EventArgs e)
@@ -830,7 +840,6 @@ public class frmComptes : XtraForm
 		this.ANAComboBoxEdit.TabIndex = 8;
 		this.ANAComboBoxEdit.QueryCheckStateByValue += new DevExpress.XtraEditors.Controls.QueryCheckStateByValueEventHandler(TRSComboBoxEdit_QueryCheckStateByValue);
 		this.ANAComboBoxEdit.QueryValueByCheckState += new DevExpress.XtraEditors.Controls.QueryValueByCheckStateEventHandler(TRSComboBoxEdit_QueryValueByCheckState);
-		this.simpleButton4.ImageOptions.Image = compta.Properties.Resources.print_16x16;
 		this.simpleButton4.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton4.Location = new System.Drawing.Point(513, 488);
 		this.simpleButton4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -840,7 +849,6 @@ public class frmComptes : XtraForm
 		this.simpleButton4.StyleController = this.dataLayoutControl1;
 		this.simpleButton4.TabIndex = 78;
 		this.simpleButton4.Text = "Imprimer";
-		this.simpleButton11.ImageOptions.Image = compta.Properties.Resources.save_16x16;
 		this.simpleButton11.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton11.Location = new System.Drawing.Point(42, 488);
 		this.simpleButton11.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -851,7 +859,6 @@ public class frmComptes : XtraForm
 		this.simpleButton11.TabIndex = 75;
 		this.simpleButton11.Text = "Enregistrer";
 		this.simpleButton11.Click += new System.EventHandler(bindingNavigatorSaveItem_Click);
-		this.simpleButton3.ImageOptions.Image = compta.Properties.Resources.delete_16x161;
 		this.simpleButton3.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton3.Location = new System.Drawing.Point(356, 488);
 		this.simpleButton3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -861,7 +868,6 @@ public class frmComptes : XtraForm
 		this.simpleButton3.StyleController = this.dataLayoutControl1;
 		this.simpleButton3.TabIndex = 77;
 		this.simpleButton3.Text = "Supprimer";
-		this.simpleButton21.ImageOptions.Image = compta.Properties.Resources.add_16x16;
 		this.simpleButton21.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 		this.simpleButton21.Location = new System.Drawing.Point(199, 488);
 		this.simpleButton21.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);

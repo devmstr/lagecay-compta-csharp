@@ -160,11 +160,14 @@ public class FrmPrincipale : XtraForm
 
 	private BarButtonItem barEcrituresPCS;
 
-	private BarSubItem barSubItem3;
+	private BarLargeButtonItem barSubItem3;
+	private PopupMenu popupEcritures;
 
-	private BarSubItem barSubItem1;
+	private BarLargeButtonItem barSubItem1;
+	private PopupMenu popupBalance;
 
-	private BarSubItem barSubItem2;
+	private BarLargeButtonItem barSubItem2;
+	private PopupMenu popupExcel;
 
 	private BehaviorManager behaviorManager1;
 
@@ -172,7 +175,8 @@ public class FrmPrincipale : XtraForm
 
 	private BarButtonItem barButtonItem6;
 
-	private BarSubItem barSubItem4;
+	private BarLargeButtonItem barSubItem4;
+	private PopupMenu popupBilans;
 
 	private BarLargeButtonItem barLargeButtonItem11;
 
@@ -190,12 +194,62 @@ public class FrmPrincipale : XtraForm
 		BonusSkins.Register();
 		SkinManager.EnableFormSkins();
 		SkinManager.EnableMdiFormSkins();
-		SkinManager.EnableFormSkins();
 		Application.EnableVisualStyles();
-		SkinManager.EnableFormSkins();
-		UserLookAndFeel.Default.SkinName = Settings.Default["ApplicationSkinName"].ToString();
+		
+		// Force a modern, sleek skin
+		UserLookAndFeel.Default.SetSkinStyle("The Bezier", "Office White");
+		
+		ApplyModernIcons();
+		
 		monModule.gUNI = "";
 		monModule.gExercice = 0;
+	}
+
+	private void ApplyModernIcons()
+	{
+		// Senior Level approach: Centralized icon management via IconManager (FontAwesome Sharp)
+		// FontAwesome vector icons provide a crisp, modern look across all display scales.
+		
+		// Main Menu Items (Small)
+		IconManager.SetIcon(barOuvrir, IconManager.Icons.Open);
+		IconManager.SetIcon(barCompacter, IconManager.Icons.Database);
+		IconManager.SetIcon(barEnregisterSous, FontAwesome.Sharp.IconChar.FloppyDisk);
+		IconManager.SetIcon(barCloturer, FontAwesome.Sharp.IconChar.Eye);
+		IconManager.SetIcon(barQuitter, IconManager.Icons.Close);
+		
+		IconManager.SetIcon(barDossiers, IconManager.Icons.Business);
+		IconManager.SetIcon(barJournaux, IconManager.Icons.Journals);
+		IconManager.SetIcon(barPlanComptable, IconManager.Icons.Accounts);
+		IconManager.SetIcon(barPieces, IconManager.Icons.Pieces);
+		IconManager.SetIcon(barTiers, IconManager.Icons.Users);
+		IconManager.SetIcon(barVilles, IconManager.Icons.Map);
+		
+		// Large Buttons (Header Bar)
+		IconManager.SetIcon(barSubItem3, IconManager.Icons.Edit, true);
+		IconManager.SetIcon(barLargeEcrPiece, IconManager.Icons.Pieces, true);
+		IconManager.SetIcon(barLargeEcrBordereau, IconManager.Icons.Today, true);
+		
+		IconManager.SetIcon(barLargeButtonItem2, IconManager.Icons.Users, true);
+		IconManager.SetIcon(barLargeButtonItem3, IconManager.Icons.Open, true);
+		IconManager.SetIcon(barLargeButtonItem4, IconManager.Icons.Journals, true);
+		IconManager.SetIcon(barLargeButtonItem1, IconManager.Icons.Centralisation, true);
+		IconManager.SetIcon(barEdCentralisation, IconManager.Icons.Centralisation);
+		IconManager.SetIcon(barLargeButtonItem5, IconManager.Icons.Reading, true);
+		
+		IconManager.SetIcon(barSubItem1, IconManager.Icons.Accounting, true);
+		IconManager.SetIcon(barLargeButtonItem8, IconManager.Icons.Calculator, true);
+		IconManager.SetIcon(barLargeButtonItem7, IconManager.Icons.Accounting, true);
+		IconManager.SetIcon(barLargeButtonItem6, IconManager.Icons.Today, true);
+		
+		IconManager.SetIcon(barSubItem4, IconManager.Icons.ShowAll, true);
+		IconManager.SetIcon(barLargeButtonItem11, IconManager.Icons.Table, true);
+		IconManager.SetIcon(barLargeButtonItem12, IconManager.Icons.Pies, true);
+		
+		IconManager.SetIcon(barLargeButtonItem9, IconManager.Icons.Report, true);
+		
+		IconManager.SetIcon(barSubItem2, IconManager.Icons.ExportXlsx, true);
+		IconManager.SetIcon(barLargeBilanExcel, IconManager.Icons.ExportXlsx, true);
+		IconManager.SetIcon(barLargeButtonItem10, IconManager.Icons.WorkWeek, true);
 	}
 
 	private void OpenFile()
@@ -1303,7 +1357,8 @@ public class FrmPrincipale : XtraForm
 		this.barDOS = new DevExpress.XtraBars.BarStaticItem();
 		this.bar3 = new DevExpress.XtraBars.Bar();
 		this.bar1 = new DevExpress.XtraBars.Bar();
-		this.barSubItem3 = new DevExpress.XtraBars.BarSubItem();
+		this.barSubItem3 = new DevExpress.XtraBars.BarLargeButtonItem();
+		this.popupEcritures = new DevExpress.XtraBars.PopupMenu(this.components);
 		this.barLargeEcrBordereau = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeEcrPiece = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem2 = new DevExpress.XtraBars.BarLargeButtonItem();
@@ -1311,15 +1366,18 @@ public class FrmPrincipale : XtraForm
 		this.barLargeButtonItem4 = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem1 = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem5 = new DevExpress.XtraBars.BarLargeButtonItem();
-		this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
+		this.barSubItem1 = new DevExpress.XtraBars.BarLargeButtonItem();
+		this.popupBalance = new DevExpress.XtraBars.PopupMenu(this.components);
 		this.barLargeButtonItem8 = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem7 = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem6 = new DevExpress.XtraBars.BarLargeButtonItem();
-		this.barSubItem4 = new DevExpress.XtraBars.BarSubItem();
+		this.barSubItem4 = new DevExpress.XtraBars.BarLargeButtonItem();
+		this.popupBilans = new DevExpress.XtraBars.PopupMenu(this.components);
 		this.barLargeButtonItem11 = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem12 = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem9 = new DevExpress.XtraBars.BarLargeButtonItem();
-		this.barSubItem2 = new DevExpress.XtraBars.BarSubItem();
+		this.barSubItem2 = new DevExpress.XtraBars.BarLargeButtonItem();
+		this.popupExcel = new DevExpress.XtraBars.PopupMenu(this.components);
 		this.barLargeBilanExcel = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barLargeButtonItem10 = new DevExpress.XtraBars.BarLargeButtonItem();
 		this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
@@ -1612,6 +1670,7 @@ public class FrmPrincipale : XtraForm
 		this.bar3.OptionsBar.UseWholeRow = true;
 		this.bar3.Text = "Status bar";
 		this.bar1.BarItemHorzIndent = 10;
+		this.bar1.BarItemVertIndent = 12;
 		this.bar1.BarName = "Outils";
 		this.bar1.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Top;
 		this.bar1.DockCol = 0;
@@ -1619,16 +1678,16 @@ public class FrmPrincipale : XtraForm
 		this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
 		this.bar1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[10]
 		{
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barSubItem3, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+			new DevExpress.XtraBars.LinkPersistInfo(this.barSubItem3),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem2),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem3),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem4, true),
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barLargeButtonItem1, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem1),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem5),
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barSubItem1, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barSubItem4, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+			new DevExpress.XtraBars.LinkPersistInfo(this.barSubItem1),
+			new DevExpress.XtraBars.LinkPersistInfo(this.barSubItem4),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem9, true),
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barSubItem2, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)
+			new DevExpress.XtraBars.LinkPersistInfo(this.barSubItem2)
 		});
 		this.bar1.OptionsBar.AllowQuickCustomization = false;
 		this.bar1.OptionsBar.DrawBorder = false;
@@ -1636,14 +1695,19 @@ public class FrmPrincipale : XtraForm
 		this.bar1.Text = "Outils";
 		this.barSubItem3.Caption = "Ecritures";
 		this.barSubItem3.Id = 58;
-		this.barSubItem3.ImageOptions.Image = compta.Properties.Resources.editfeed_32x32;
-		this.barSubItem3.ImageOptions.LargeImage = compta.Properties.Resources.editfeed_32x32;
-		this.barSubItem3.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[2]
+		this.barSubItem3.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+		this.barSubItem3.ActAsDropDown = true;
+		this.barSubItem3.DropDownControl = this.popupEcritures;
+		this.barSubItem3.Name = "barSubItem3";
+		this.barSubItem3.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+		
+		this.popupEcritures.Manager = this.barManager1;
+		this.popupEcritures.Name = "popupEcritures";
+		this.popupEcritures.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[2]
 		{
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barLargeEcrBordereau, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeEcrBordereau),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeEcrPiece)
 		});
-		this.barSubItem3.Name = "barSubItem3";
 		this.barLargeEcrBordereau.Caption = "Ecritures par Bordereau";
 		this.barLargeEcrBordereau.Id = 54;
 		this.barLargeEcrBordereau.ImageOptions.Image = compta.Properties.Resources.today_32x32;
@@ -1682,9 +1746,8 @@ public class FrmPrincipale : XtraForm
 		this.barLargeButtonItem4.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(barEdJournaux_ItemClick);
 		this.barLargeButtonItem1.Caption = "Centralisation";
 		this.barLargeButtonItem1.Id = 60;
-		this.barLargeButtonItem1.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("barLargeButtonItem1.ImageOptions.Image");
-		this.barLargeButtonItem1.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("barLargeButtonItem1.ImageOptions.LargeImage");
 		this.barLargeButtonItem1.Name = "barLargeButtonItem1";
+		this.barLargeButtonItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
 		this.barLargeButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(barLargeButtonItem1_ItemClick);
 		this.barLargeButtonItem5.Caption = "Grands Livres";
 		this.barLargeButtonItem5.Id = 43;
@@ -1695,15 +1758,20 @@ public class FrmPrincipale : XtraForm
 		this.barLargeButtonItem5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(barEdGrandLivre_ItemClick);
 		this.barSubItem1.Caption = "Balance";
 		this.barSubItem1.Id = 56;
-		this.barSubItem1.ImageOptions.Image = compta.Properties.Resources.weightedpies_32x32;
-		this.barSubItem1.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.B | System.Windows.Forms.Keys.Control);
-		this.barSubItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[3]
+		this.barSubItem1.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+		this.barSubItem1.ActAsDropDown = true;
+		this.barSubItem1.DropDownControl = this.popupBalance;
+		this.barSubItem1.Name = "barSubItem1";
+		this.barSubItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+
+		this.popupBalance.Manager = this.barManager1;
+		this.popupBalance.Name = "popupBalance";
+		this.popupBalance.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[3]
 		{
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem8),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem7),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem6)
 		});
-		this.barSubItem1.Name = "barSubItem1";
 		this.barLargeButtonItem8.Caption = "Balance Générale";
 		this.barLargeButtonItem8.Id = 46;
 		this.barLargeButtonItem8.ImageOptions.Image = compta.Properties.Resources.navigationbar_32x32;
@@ -1727,13 +1795,19 @@ public class FrmPrincipale : XtraForm
 		this.barLargeButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(barEdBalanceSoldes_ItemClick);
 		this.barSubItem4.Caption = "Bilans";
 		this.barSubItem4.Id = 61;
-		this.barSubItem4.ImageOptions.Image = compta.Properties.Resources.paneloff_32x32;
-		this.barSubItem4.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[2]
-		{
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barLargeButtonItem11, DevExpress.XtraBars.BarItemPaintStyle.Standard),
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barLargeButtonItem12, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)
-		});
+		this.barSubItem4.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+		this.barSubItem4.ActAsDropDown = true;
+		this.barSubItem4.DropDownControl = this.popupBilans;
 		this.barSubItem4.Name = "barSubItem4";
+		this.barSubItem4.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+
+		this.popupBilans.Manager = this.barManager1;
+		this.popupBilans.Name = "popupBilans";
+		this.popupBilans.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[2]
+		{
+			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem11),
+			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem12)
+		});
 		this.barLargeButtonItem11.Caption = "Bilan Comptable";
 		this.barLargeButtonItem11.Id = 64;
 		this.barLargeButtonItem11.ImageOptions.Image = compta.Properties.Resources.borderlinestyle_32x32;
@@ -1754,14 +1828,19 @@ public class FrmPrincipale : XtraForm
 		this.barLargeButtonItem9.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(barLargeButtonItem9_ItemClick);
 		this.barSubItem2.Caption = "Excel";
 		this.barSubItem2.Id = 57;
-		this.barSubItem2.ImageOptions.Image = compta.Properties.Resources.exporttoxls_32x32;
-		this.barSubItem2.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.X | System.Windows.Forms.Keys.Control);
-		this.barSubItem2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[2]
+		this.barSubItem2.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
+		this.barSubItem2.ActAsDropDown = true;
+		this.barSubItem2.DropDownControl = this.popupExcel;
+		this.barSubItem2.Name = "barSubItem2";
+		this.barSubItem2.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+
+		this.popupExcel.Manager = this.barManager1;
+		this.popupExcel.Name = "popupExcel";
+		this.popupExcel.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[2]
 		{
-			new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.barLargeBilanExcel, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeBilanExcel),
 			new DevExpress.XtraBars.LinkPersistInfo(this.barLargeButtonItem10)
 		});
-		this.barSubItem2.Name = "barSubItem2";
 		this.barLargeBilanExcel.Caption = "Bilan Excel";
 		this.barLargeBilanExcel.Id = 52;
 		this.barLargeBilanExcel.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("barLargeBilanExcel.ImageOptions.Image");
