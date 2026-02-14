@@ -1,0 +1,26 @@
+# .NET Core / Visual Studio
+[Bb]in/
+[Oo]bj/
+.vs/
+.vscode/
+
+# Project Specific
+FixedCompta.zip
+BundleTemp/
+msbuild.log
+build_error.log
+
+# User Data
+# We ignore the actual databases and excel exports in these folders
+# but we keep the folders themselves if they contain templates
+DATA/*.mdb
+!DATA/modele.mdb
+EXCEL/*.xlsx
+!EXCEL/.gitkeep
+
+# User settings
+compta.csproj.user
+
+# OS Specific
+Thumbs.db
+.DS_Store

@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>compta</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>True</UseWindowsForms>
+    <TargetFramework>net472</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+    <Reference Include="DevExpress.Data.Desktop.v20.1">
+      <HintPath>..\Compta2025\DevExpress.Data.Desktop.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Spreadsheet.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Spreadsheet.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="DevExpress.Utils.v20.1">
+      <HintPath>..\Compta2025\DevExpress.Utils.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraLayout.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraEditors.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraGrid.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraSpreadsheet.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraSpreadsheet.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraBars.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraDialogs.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraDialogs.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="DevExpress.XtraReports.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraReports.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="DevExpress.Data.v20.1">
+      <HintPath>..\Compta2025\DevExpress.Data.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraPrinting.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Printing.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="DevExpress.BonusSkins.v20.1">
+      <HintPath>..\Compta2025\DevExpress.BonusSkins.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="IntelliLock.Licensing">
+      <HintPath>..\Compta2025\IntelliLock.Licensing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bilan.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bilanfisc.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DATA\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EXCEL\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="modele.mdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
