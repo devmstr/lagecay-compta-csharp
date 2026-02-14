@@ -18,10 +18,9 @@ if (Test-Path $TempDir) { Remove-Item $TempDir -Recurse -Force }
 New-Item -ItemType Directory -Path $TempDir | Out-Null
 
 # 4. Copy everything from build output to temp dir
-# We Copy EVERYTHING because DevExpress DLLs and templates are needed
 Copy-Item -Path "$SourceDir\*" -Destination $TempDir -Recurse -Force
 
-# 5. Remove unnecessary development files from the bundle
+# 5. Remove unnecessary development files
 $ExcludeFiles = @("*.pdb", "*.xml", "*.deps.json")
 foreach ($pattern in $ExcludeFiles) {
     Remove-Item -Path "$TempDir\$pattern" -ErrorAction SilentlyContinue
@@ -30,7 +29,11 @@ foreach ($pattern in $ExcludeFiles) {
 # 6. Create the ZIP file
 if (Test-Path $BundleName) { Remove-Item $BundleName }
 Write-Host "Creating $BundleName..." -ForegroundColor Green
-Compress-Archive -Path "$TempDir\*" -DestinationPath $BundleName -Force
+
+Add-Type -AssemblyName "System.IO.Compression.FileSystem"
+$destPath = [System.IO.Path]::GetFullPath($BundleName)
+$srcPath = [System.IO.Path]::GetFullPath($TempDir)
+[System.IO.Compression.ZipFile]::CreateFromDirectory($srcPath, $destPath)
 
 # 7. Cleanup
 Remove-Item $TempDir -Recurse -Force
