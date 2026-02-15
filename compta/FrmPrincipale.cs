@@ -295,10 +295,15 @@ public class FrmPrincipale : XtraForm
 			try
 			{
 				monModule.gFile = openFileDialog1.FileName;
-				Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-				((ConnectionStringsSection)configuration.GetSection("connectionStrings")).ConnectionStrings["MyBase"].ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + monModule.gFile;
-				configuration.Save();
-				ConfigurationManager.RefreshSection("connectionStrings");
+				
+				// Update connection string in memory (config.Save() would fail in Program Files)
+				var connectionStrings = ConfigurationManager.ConnectionStrings;
+				var field = typeof(ConfigurationElement).GetField("_readOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+				if (connectionStrings["MyBase"] != null) {
+					field?.SetValue(connectionStrings["MyBase"], false);
+					connectionStrings["MyBase"].ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + monModule.gFile;
+				}
+				
 				openFileDialog1.Dispose();
 				monModule.OuvrirTables();
 				return;
@@ -314,7 +319,7 @@ public class FrmPrincipale : XtraForm
 
 	private void MiseAjour()
 	{
-		using OleDbConnection gbase = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString);
+		using OleDbConnection gbase = new OleDbConnection(monModule.gConnString);
 		OleDbCommand cmd = new OleDbCommand();
 		OleDbTransaction transaction = null;
 		cmd.CommandType = CommandType.Text;
@@ -508,17 +513,18 @@ public class FrmPrincipale : XtraForm
 	{
 		try
 		{
+			// 1. Setup Environment (Paths, DB copy, Excel copy, In-memory connection string)
 			monModule.CheckEnvironment();
-			monModule.gFile = Path.GetDirectoryName(Application.ExecutablePath) + "\\DATA\\ComptaDB.mdb";
-			Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			((ConnectionStringsSection)configuration.GetSection("connectionStrings")).ConnectionStrings["MyBase"].ConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + monModule.gFile;
-			configuration.Save();
-			ConfigurationManager.RefreshSection("connectionStrings");
+			
+			// 2. Refresh database connectivity
 			MiseAjour();
 			monModule.OuvrirTables();
+
+			// 3. User Login/Selection UI
 			frmChangerDossier obj = new frmChangerDossier();
 			obj.ShowDialog();
 			obj.Dispose();
+			
 			barDOS.Caption = "";
 			if (monModule.gUNI != string.Empty)
 			{
@@ -1157,10 +1163,14 @@ public class FrmPrincipale : XtraForm
 
 	private void barLargeButtonItem9_ItemClick(object sender, ItemClickEventArgs e)
 	{
-		string fic = Path.GetDirectoryName(Application.ExecutablePath) + "\\EXCEL\\" + monModule.gUNILIB + ".xlsx";
+		string fic = Path.Combine(monModule.gExcelPath, monModule.gUNILIB + ".xlsx");
 		if (!File.Exists(fic))
 		{
-			File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\bilan.xlsx", fic, overwrite: false);
+			string sourceTemplate = Path.Combine(monModule.gExcelPath, "bilan.xlsx");
+			if (File.Exists(sourceTemplate)) {
+				File.Copy(sourceTemplate, fic, overwrite: false);
+				File.SetAttributes(fic, FileAttributes.Normal);
+			}
 		}
 		monModule.MakeBalance();
 		frmPrintBilan obj = new frmPrintBilan(fic);
@@ -1193,7 +1203,7 @@ public class FrmPrincipale : XtraForm
 	{
 		try
 		{
-			_ = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+			_ = monModule.gConnString;
 			File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\modele.mdb", Path.GetDirectoryName(monModule.gFile) + "\\" + monModule.gUNI + ".mdb", overwrite: true);
 			OleDbConnection destination = new OleDbConnection("Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + Path.GetDirectoryName(monModule.gFile) + "\\" + monModule.gUNI + ".mdb");
 			destination.Open();
@@ -1235,10 +1245,14 @@ public class FrmPrincipale : XtraForm
 
 	private void OuvrirBilanExcel()
 	{
-		string fic = Path.GetDirectoryName(Application.ExecutablePath) + "\\EXCEL\\" + monModule.gUNILIB + ".xlsx";
+		string fic = Path.Combine(monModule.gExcelPath, monModule.gUNILIB + ".xlsx");
 		if (!File.Exists(fic))
 		{
-			File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\bilan.xlsx", fic, overwrite: false);
+			string sourceTemplate = Path.Combine(monModule.gExcelPath, "bilan.xlsx");
+			if (File.Exists(sourceTemplate)) {
+				File.Copy(sourceTemplate, fic, overwrite: false);
+				File.SetAttributes(fic, FileAttributes.Normal);
+			}
 		}
 		monModule.MakeBalance();
 		frmExcel obj = new frmExcel(fic);
@@ -1306,10 +1320,14 @@ public class FrmPrincipale : XtraForm
 
 	private void barLargeButtonItem11_ItemClick(object sender, ItemClickEventArgs e)
 	{
-		string fic = Path.GetDirectoryName(Application.ExecutablePath) + "\\EXCEL\\" + monModule.gUNILIB + ".xlsx";
+		string fic = Path.Combine(monModule.gExcelPath, monModule.gUNILIB + ".xlsx");
 		if (!File.Exists(fic))
 		{
-			File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\bilan.xlsx", fic, overwrite: false);
+			string sourceTemplate = Path.Combine(monModule.gExcelPath, "bilan.xlsx");
+			if (File.Exists(sourceTemplate)) {
+				File.Copy(sourceTemplate, fic, overwrite: false);
+				File.SetAttributes(fic, FileAttributes.Normal);
+			}
 		}
 		monModule.MakeBalance();
 		frmPrintBilan obj = new frmPrintBilan(fic);
@@ -1319,10 +1337,14 @@ public class FrmPrincipale : XtraForm
 
 	private void barLargeButtonItem12_ItemClick(object sender, ItemClickEventArgs e)
 	{
-		string fic = Path.GetDirectoryName(Application.ExecutablePath) + "\\EXCEL\\" + monModule.gUNILIB + "_FISC.xlsx";
+		string fic = Path.Combine(monModule.gExcelPath, monModule.gUNILIB + "_FISC.xlsx");
 		if (!File.Exists(fic))
 		{
-			File.Copy(Path.GetDirectoryName(Application.ExecutablePath) + "\\bilanfisc.xlsx", fic, overwrite: false);
+			string sourceTemplate = Path.Combine(monModule.gExcelPath, "bilanfisc.xlsx");
+			if (File.Exists(sourceTemplate)) {
+				File.Copy(sourceTemplate, fic, overwrite: false);
+				File.SetAttributes(fic, FileAttributes.Normal);
+			}
 		}
 		monModule.MakeBalance();
 		frmPrintBilan obj = new frmPrintBilan(fic);

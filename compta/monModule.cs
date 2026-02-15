@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 using DevExpress.XtraGrid;
 
 namespace compta;
@@ -18,6 +19,9 @@ public static class monModule
 	public static bool piecemodifie = false;
 
 	public static bool immomodifie = false;
+	
+	public static string gConnString;
+	public static string gExcelPath;
 
 	public static string[] gMois = new string[13]
 	{
@@ -472,7 +476,7 @@ public static class monModule
 
 	public static void MakeBalance()
 	{
-		using OleDbConnection gbase = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString);
+		using OleDbConnection gbase = new OleDbConnection(monModule.gConnString);
 		OleDbCommand cmd = new OleDbCommand();
 		OleDbTransaction transaction = null;
 		cmd.CommandType = CommandType.Text;
@@ -502,7 +506,7 @@ public static class monModule
 		{
 			return;
 		}
-		using OleDbConnection gbase = new OleDbConnection(ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString);
+		using OleDbConnection gbase = new OleDbConnection(monModule.gConnString);
 		OleDbCommand cmd = new OleDbCommand();
 		OleDbTransaction transaction = null;
 		cmd.CommandType = CommandType.Text;
@@ -568,8 +572,7 @@ public static class monModule
 			{
 				gbase.Close();
 			}
-			string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
-			gbase.ConnectionString = connection;
+			gbase.ConnectionString = gConnString;
 			gbase.Open();
 			adDossiers = new OleDbDataAdapter("Select * from Dossiers order by UNI", gbase);
 			clbDossiers = new OleDbCommandBuilder(adDossiers);
@@ -608,65 +611,82 @@ public static class monModule
 	{
 		// Senior Level Environment Manager
 		// Ensures all directories and template files exist to avoid "File Not Found" errors.
-		// Also handles the legacy MyDatabase.mdb requirement for older report definitions.
 		
+		// 1. Define Paths (Global App Data is safe for writing without special permissions)
+		string localData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+		string appDataRoot = Path.Combine(localData, Application.ProductName); 
+		string dataPath = Path.Combine(appDataRoot, "DATA");
+		string excelPath = Path.Combine(appDataRoot, "EXCEL");
+		
+		// Installation path where the .exe and template live
 		string appPath = Path.GetDirectoryName(Application.ExecutablePath);
-		string dataPath = Path.Combine(appPath, "DATA");
-		string excelPath = Path.Combine(appPath, "EXCEL");
-		
-		// 1. Ensure Directories
+		string templatePath = Path.Combine(appPath, "modele.mdb");
+
+		// 2. Ensure Directories exist in ProgramData (Safe location)
 		if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
 		if (!Directory.Exists(excelPath)) Directory.CreateDirectory(excelPath);
 
-		// 2. Database Files
+		// 3. Database File Path in the safe location
 		string dbPath = Path.Combine(dataPath, "ComptaDB.mdb");
 		string legacyDbPath = Path.Combine(appPath, "MyDatabase.mdb");
-		string templatePath = Path.Combine(appPath, "modele.mdb");
 
-		// Main Database
+		// Copy template to the safe location if the actual database is missing
 		if (!File.Exists(dbPath) && File.Exists(templatePath))
 		{
-			File.Copy(templatePath, dbPath);
+			try {
+				File.Copy(templatePath, dbPath, true);
+			} catch { /* If file is locked, we can't do much here */ }
 		}
+		
+		// ALWAYS ensure the working database is NOT read-only
+		try {
+			if (File.Exists(dbPath)) {
+				File.SetAttributes(dbPath, FileAttributes.Normal);
+			}
+		} catch { }
 
 		// Legacy Database (Required by some DevExpress report definitions)
+		// We try to maintain this in the app folder for back-compat, but it's optional
 		if (!File.Exists(legacyDbPath))
 		{
-			if (File.Exists(templatePath)) File.Copy(templatePath, legacyDbPath);
-			else if (File.Exists(dbPath)) File.Copy(dbPath, legacyDbPath);
+			try {
+				if (File.Exists(templatePath)) File.Copy(templatePath, legacyDbPath);
+				else if (File.Exists(dbPath)) File.Copy(dbPath, legacyDbPath);
+			} catch { /* Might fail due to permissions, which is expected for Program Files */ }
 		}
 
-		// 3. Spreadsheet Templates
+		// 4. Set the Global Connection String (Bypassing App.Config limitations)
+		gConnString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={dbPath}";
+		
+		// Legacy support (optional: keep ConfigurationManager updated in-memory if possible)
+		try {
+			var connectionStrings = ConfigurationManager.ConnectionStrings;
+			var field = typeof(ConfigurationElement).GetField("_readOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+			if (connectionStrings["MyBase"] != null) {
+				field?.SetValue(connectionStrings["MyBase"], false);
+				connectionStrings["MyBase"].ConnectionString = gConnString;
+			}
+		} catch { /* Silent fail */ }
+
+		// 5. Excel Templates Handling
 		string bilanTemplate = Path.Combine(appPath, "bilan.xlsx");
 		string bilanFiscTemplate = Path.Combine(appPath, "bilanfisc.xlsx");
 		
-		// Ensure EXCEL folder has initial copies if needed (optional, logic usually handles per-Dossier)
-		// But we ensure the root templates exist for the app to copy them later.
-		if (!File.Exists(bilanTemplate))
-		{
-			// Check if we can find it in parent or other common locations if missing in bin
-			// For now, we just log or warn if the core template is missing.
-		}
+		string bilanDest = Path.Combine(excelPath, "bilan.xlsx");
+		string bilanFiscDest = Path.Combine(excelPath, "bilanfisc.xlsx");
 
-		// 4. Force ACE Provider consistency across configuration
-		// This block mitigates the "32-bit Jet vs 64-bit ACE" inconvenience
+		// Copy Excel templates to the safe ProgramData EXCEL folder if missing
 		try {
-			Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			var connectionStrings = config.ConnectionStrings.ConnectionStrings;
-			bool changed = false;
+			if (!File.Exists(bilanDest) && File.Exists(bilanTemplate)) File.Copy(bilanTemplate, bilanDest);
+			if (!File.Exists(bilanFiscDest) && File.Exists(bilanFiscTemplate)) File.Copy(bilanFiscTemplate, bilanFiscDest);
+			
+			if (File.Exists(bilanDest)) File.SetAttributes(bilanDest, FileAttributes.Normal);
+			if (File.Exists(bilanFiscDest)) File.SetAttributes(bilanFiscDest, FileAttributes.Normal);
+		} catch { /* Silent fail */ }
 
-			foreach (ConnectionStringSettings cs in connectionStrings) {
-				if (cs.ConnectionString.Contains("Microsoft.Jet.OLEDB.4.0")) {
-					cs.ConnectionString = cs.ConnectionString.Replace("Microsoft.Jet.OLEDB.4.0", "Microsoft.ACE.OLEDB.12.0");
-					changed = true;
-				}
-			}
-
-			if (changed) {
-				config.Save(ConfigurationSaveMode.Modified);
-				ConfigurationManager.RefreshSection("connectionStrings");
-			}
-		} catch { /* Silent fail for config lock/permissions */ }
+		// 6. Global State Update
+		monModule.gFile = dbPath;
+		monModule.gExcelPath = excelPath;
 	}
 
 	public static double SRound(double x, int i)

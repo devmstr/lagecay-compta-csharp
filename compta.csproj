@@ -25,6 +25,33 @@
     <Reference Include="DevExpress.Spreadsheet.v20.1.Core">
       <HintPath>..\Compta2025\DevExpress.Spreadsheet.v20.1.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Office.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Office.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.RichEdit.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Charts.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v20.1">
+      <HintPath>..\Compta2025\DevExpress.DataAccess.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v20.1.UI">
+      <HintPath>..\Compta2025\DevExpress.DataAccess.v20.1.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraCharts.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraTreeList.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraVerticalGrid.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraNavBar.v20.1.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +75,54 @@
     </Reference>
     <Reference Include="DevExpress.XtraDialogs.v20.1">
       <HintPath>..\Compta2025\DevExpress.XtraDialogs.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v20.1">
+      <HintPath>..\Compta2025\DevExpress.CodeParser.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Diagram.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Diagram.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Dialogs.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Dialogs.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v20.1.UI">
+      <HintPath>..\Compta2025\DevExpress.Utils.v20.1.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v20.1">
+      <HintPath>..\Compta2025\DevExpress.Xpo.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraDiagram.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraDiagram.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.XtraGauges.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v20.1">
+      <HintPath>..\Compta2025\DevExpress.XtraRichEdit.v20.1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>..\Compta2025\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>..\Compta2025\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>..\Compta2025\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\Compta2025\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Pdf.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v20.1.Drawing">
+      <HintPath>..\Compta2025\DevExpress.Pdf.v20.1.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.PivotGrid.v20.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v20.1.Core">
+      <HintPath>..\Compta2025\DevExpress.Sparkline.v20.1.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="DevExpress.XtraReports.v20.1">

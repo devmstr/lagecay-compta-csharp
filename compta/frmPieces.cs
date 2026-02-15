@@ -139,7 +139,7 @@ public class frmPieces : XtraForm
 
 	private void frmPieces_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		journauxTableAdapter.Connection.ConnectionString = connection;
 		journauxTableAdapter.Fill(dataSet1.Journaux);
 		piecesTableAdapter.Connection.ConnectionString = connection;
@@ -194,7 +194,7 @@ public class frmPieces : XtraForm
 		if (MessageBox.Show("Attention !!\nLa suppression de cette Pièce  effacera toutes les écritures qu'elle contient.\nSouhaitez-vous continuer ?", "Confirmation de la suppression d'une Pièce", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes && gridView1.RowCount > 0)
 		{
 			int ID = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "ID"));
-			string connectionString = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+			string connectionString = monModule.gConnString;
 			bindingSource1.EndEdit();
 			OleDbCommand cmd = new OleDbCommand();
 			OleDbTransaction transaction = null;

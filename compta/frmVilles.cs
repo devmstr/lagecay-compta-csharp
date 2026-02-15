@@ -103,7 +103,7 @@ public class frmVilles : XtraForm
 
 	private void frmVilles_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		villesTableAdapter.Connection.ConnectionString = connection;
 		villesTableAdapter.Fill(dataSet1.Villes);
 	}

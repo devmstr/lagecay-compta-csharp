@@ -96,7 +96,7 @@ public class frmBalanceDetaillee : XtraForm
 
 	private void frmGrandLivre_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		dossiersTableAdapter.Connection.ConnectionString = connection;
 		comptesTableAdapter.Connection.ConnectionString = connection;
 		tiersTableAdapter.Connection.ConnectionString = connection;

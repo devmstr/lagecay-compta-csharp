@@ -158,7 +158,7 @@ public class frmComptes : XtraForm
 
 	private void frmComptes_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		comptesTableAdapter.Connection.ConnectionString = connection;
 		comptesTableAdapter.Fill(dataSet1.Comptes);
 		dataSet1.Comptes.Columns["IMPUT"].DefaultValue = "O";
@@ -188,7 +188,7 @@ public class frmComptes : XtraForm
 
 	protected override void OnLoad(EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		comptesTableAdapter.Connection.ConnectionString = connection;
 		dataSet1.Comptes.Columns["IMPUT"].DefaultValue = "O";
 		dataSet1.Comptes.Columns["TRS"].DefaultValue = "N";

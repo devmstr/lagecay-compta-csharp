@@ -228,7 +228,7 @@ public class frmAmortissement : XtraForm
 
 	private void frmAmortissement_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		comptesTableAdapter.Connection.ConnectionString = connection;
 		comptesTableAdapter.FillByAMOR(amortab);
 		comptesTableAdapter.FillByProd(prodtab);

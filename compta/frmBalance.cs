@@ -77,7 +77,7 @@ public class frmBalance : XtraForm
 
 	private void frmBalance_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		dossiersTableAdapter.Connection.ConnectionString = connection;
 		dossiersTableAdapter.Fill(dataSet1.Dossiers);
 		dos.EditValue = monModule.gUNI;

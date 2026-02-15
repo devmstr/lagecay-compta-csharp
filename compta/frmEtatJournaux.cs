@@ -98,7 +98,7 @@ public class frmEtatJournaux : XtraForm
 
 	private void frmEtatJournaux_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		dossiersTableAdapter.Connection.ConnectionString = connection;
 		journauxTableAdapter.Connection.ConnectionString = connection;
 		dossiersTableAdapter.Fill(dataSet1.Dossiers);

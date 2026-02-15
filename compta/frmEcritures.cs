@@ -286,7 +286,7 @@ public class frmEcritures : XtraForm
 			pardate.Visibility = LayoutVisibility.Never;
 			colJour.Visible = true;
 		}
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		Console.WriteLine(connection);
 		ecritures_tTableAdapter.Connection.ConnectionString = connection;
 		journauxTableAdapter.Connection.ConnectionString = connection;
@@ -417,7 +417,7 @@ public class frmEcritures : XtraForm
 		SOLDN.EditValue = 0;
 		SOLCN.EditValue = 0;
 		btnEnregistrer.Enabled = true;
-		string connectionString = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connectionString = monModule.gConnString;
 		OleDbCommand cmd = new OleDbCommand();
 		OleDbTransaction transaction = null;
 		cmd.CommandType = CommandType.Text;
@@ -909,7 +909,7 @@ public class frmEcritures : XtraForm
 		}
 		gridView1.PostEditor();
 		gridView1.UpdateCurrentRow();
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		DataRow[] array3 = dataSet1.Ecritures_t.Select("CPT is null");
 		for (int k = 0; k < array3.Length; k++)
 		{

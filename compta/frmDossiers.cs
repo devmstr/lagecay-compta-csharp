@@ -187,7 +187,7 @@ public class frmDossiers : XtraForm
 
 	private void frmDossiers_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		villesTableAdapter.Connection.ConnectionString = connection;
 		dossiersTableAdapter.Connection.ConnectionString = connection;
 		dossiersTableAdapter.Fill(dataSet1.Dossiers);
@@ -236,7 +236,7 @@ public class frmDossiers : XtraForm
 
 	private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
 	{
-		string connectionString = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connectionString = monModule.gConnString;
 		string maxVal = dataSet1.Dossiers.Compute("max([UNI])", string.Empty).ToString();
 		maxVal = monModule.Suivant(maxVal);
 		OleDbTransaction transaction = null;

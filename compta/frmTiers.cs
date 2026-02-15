@@ -241,7 +241,7 @@ public class frmTiers : XtraForm
 
 	private void frmTiers_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		villesTableAdapter.Connection.ConnectionString = connection;
 		tiersTableAdapter.Connection.ConnectionString = connection;
 		tiersTableAdapter.FillBy(dataSet1.Tiers, monModule.gUNI);

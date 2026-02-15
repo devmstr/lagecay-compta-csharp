@@ -59,7 +59,7 @@ public class frmRechJA : XtraForm
 
 	private void frmRechJA_Load(object sender, EventArgs e)
 	{
-		string connection = ConfigurationManager.ConnectionStrings["MyBase"].ConnectionString;
+		string connection = monModule.gConnString;
 		journauxTableAdapter.Connection.ConnectionString = connection;
 		journauxTableAdapter.Fill(dataSet1.Journaux);
 	}
