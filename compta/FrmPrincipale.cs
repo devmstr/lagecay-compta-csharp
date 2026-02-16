@@ -434,52 +434,78 @@ public class FrmPrincipale : XtraForm
 		{
 			File.Delete(Temp2Db);
 		}
-		object[] oParams = new object[2] { SourceDb, Temp1Db };
-		object DBE = Activator.CreateInstance(Type.GetTypeFromProgID("DAO.DBEngine.120"));
-		DBE.GetType().InvokeMember("CompactDatabase", BindingFlags.InvokeMethod, null, DBE, oParams);
-		if (File.Exists(Temp1Db))
-		{
-			try
-			{
-				File.Move(SourceDb, Temp2Db);
-			}
-			catch
-			{
-			}
-			if (File.Exists(Temp2Db))
+		
+		object DBE = null;
+		try {
+			object[] oParams = new object[2] { SourceDb, Temp1Db };
+			DBE = Activator.CreateInstance(Type.GetTypeFromProgID("DAO.DBEngine.120"));
+			DBE.GetType().InvokeMember("CompactDatabase", BindingFlags.InvokeMethod, null, DBE, oParams);
+			
+			if (File.Exists(Temp1Db))
 			{
 				try
 				{
-					File.Move(Temp1Db, SourceDb);
+					File.Move(SourceDb, Temp2Db);
 				}
 				catch
 				{
 				}
-				if (File.Exists(SourceDb))
+				if (File.Exists(Temp2Db))
 				{
-					retVal = true;
+					try
+					{
+						File.Move(Temp1Db, SourceDb);
+					}
+					catch
+					{
+					}
+					if (File.Exists(SourceDb))
+					{
+						retVal = true;
+					}
+				}
+				if (File.Exists(Temp1Db))
+				{
+					File.Delete(Temp1Db);
+				}
+				if (File.Exists(Temp2Db))
+				{
+					File.Delete(Temp2Db);
 				}
 			}
-			if (File.Exists(Temp1Db))
-			{
-				File.Delete(Temp1Db);
-			}
-			if (File.Exists(Temp2Db))
-			{
-				File.Delete(Temp2Db);
+			MessageBox.Show("La base de données a été compactée !");
+		}
+		finally {
+			if (DBE != null) {
+				Marshal.ReleaseComObject(DBE);
+				DBE = null;
 			}
 		}
-		Marshal.ReleaseComObject(DBE);
-		DBE = null;
-		MessageBox.Show("La base de données a été compactée !");
 		return retVal;
 	}
 
 	private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
 	{
-		monModule.gbase.Close();
-		CompactDatabaseACE(monModule.gFile);
-		monModule.OuvrirTables();
+		try
+		{
+			monModule.gbase.Close();
+			
+			// Clear pooling and wait a bit for file handles to release
+			OleDbConnection.ReleaseObjectPool();
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
+			System.Threading.Thread.Sleep(500); 
+
+			CompactDatabaseACE(monModule.gFile);
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show("Erreur lors du compactage : " + ex.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+		finally
+		{
+			monModule.OuvrirTables();
+		}
 	}
 
 	private void barOuvrir_ItemClick(object sender, ItemClickEventArgs e)
